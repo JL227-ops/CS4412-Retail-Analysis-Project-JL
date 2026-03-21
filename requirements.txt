@@ -1,0 +1,10 @@
+pandas==2.3.3
+openpyxl==3.1.2
+numpy>=1.26
+matplotlib>=3.8
+seaborn>=0.13
+scikit-learn>=1.4
+mlxtend>=0.23
+jupyterlab>=4.0
+ipython>=8.0
+prettytable>=3.10
