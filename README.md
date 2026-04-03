@@ -108,20 +108,24 @@ The project is **functionally complete**. Remaining work focuses on refinement a
 - MLxtend (Apriori)
 
 ##  Repository Structure
-CS4412_Project_Jia_Liu/
-data/
-    raw/
-    Online Retail .xlsx
-notebook/
-    M1_Proposal.ipynb
-    M2_Initial_Implementation.ipynb
-    M3_Complete_Implementation.ipynb
-docs/
-    CS4412_JIA_LIU_M3.pdf
-    M1-Proposal.pdf
-    M2-Initial Implementation.pdf
-figures/
-src/
+
+CS4412-Retail-Analysis-Project-JL 
+
+├── data/ 
+
+     ├─ raw/ # Original Online Retail dataset 
+     
+├── docs/ # M1-Proposal,M2-Initial Implementation,CS4412_jia_liu_M3 
+
+├── notebooks/ # M1_Proposal,M2_Initial Inmplementation,M3_Complete_Implementation
+
+├── src/
+
+├── figures/ # Plots(RFM,PCA, clustering) 
+
+├── README.md # Project overview and instructions
+
+└── requirements.txt # List of required Python libraries
        
 
 ## Author
