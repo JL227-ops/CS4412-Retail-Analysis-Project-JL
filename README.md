@@ -1,166 +1,130 @@
 # Customer Segmentation and Market Basket Analysis
 ### CS 4412 – Data Mining  
+# CS4412 Retail Analysis Project (M3)
 
-# Project Overview
-This project analyzes customer transaction data from the **UCI Online Retail dataset** in order to discover patterns in purchasing behavior.
-The project applies several data mining techniques, including:
-- Exploratory Data Analysis (EDA)
-- Data preprocessing and cleaning
-- Association Rule Mining (Apriori)
-- Customer segmentation using clustering
+## Project Overview
+This project analyzes customer purchasing behavior using the UCI Online Retail dataset.  
+The goal is to discover meaningful patterns in customer transactions and support business decisions such as customer segmentation, cross-selling, and anomaly detection.
 
-The goal is to identify meaningful relationships between products and understand customer purchasing patterns that could support data-driven marketing strategies.
----
-
-# Dataset
-The dataset used in this project is the **Online Retail Dataset** from the UCI Machine Learning Repository.
-
-Dataset characteristics:
-
-- **Rows:** 541,909
-- **Attributes:** 8
-- **Format:** Excel (.xlsx)
-- **Time range:** 2010–2011
-- **Business type:** UK-based online retailer
-
-Each row represents a purchased product within a transaction.
-
-### Features
-
-| Feature | Description |
-|------|------|
-| InvoiceNo | Transaction identifier |
-| StockCode | Product identifier |
-| Description | Product name |
-| Quantity | Number of items purchased |
-| InvoiceDate | Date and time of purchase |
-| UnitPrice | Price per item |
-| CustomerID | Unique customer ID |
-| Country | Customer location |
-
----
-# Project Structure
+This milestone (M3) represents a **complete implementation** of the data mining pipeline, including feature engineering, clustering, classification, and anomaly detection.
 
 
----
+## Discovery Questions
 
-# Data Preprocessing
-Several preprocessing steps were applied to improve data quality before performing mining tasks.
-Key preprocessing decisions include:
-1. **Removing missing values**
-Rows containing missing values were removed to ensure valid transaction records.
-2. **Filtering product returns**
-Transactions with negative quantities were removed because they represent product returns rather than purchases.
-3. **Removing invalid prices**
-Rows with zero or negative prices were filtered out.
-4. **Feature engineering**
-A new feature called **TotalPrice** was created:
+1. **Which products are frequently purchased together?**  
+   → Addressed using association rule mining (Apriori)
 
-TotalPrice = Quantity × UnitPrice
-This represents the total value of a purchased item.
----
-# Exploratory Data Analysis
-Exploratory analysis was performed to understand the structure and characteristics of the dataset.
-Key observations include:
-- Purchase quantities follow a **long-tailed distribution**
-- Most transactions involve **small purchase quantities**
-- The majority of customers are located in the **United Kingdom**
-- Unit prices are generally **low with several outliers**
+2. **Are there natural customer segments based on purchasing behavior?**  
+   → Addressed using RFM, K-Means (original + PCA), Decision Tree, Naive Bayes.
+     four segments were identified (VIP, loyal, regular, inactive). 
+     Frequency and Monetary define high-value customers, while Recency identifies inactive ones.
 
-Several visualizations were created to illustrate these patterns.
-Example visualizations include:
-- Quantity distribution histogram
-- Price vs quantity scatter plot
-- Country distribution
-- Correlation heatmap
-- K-Means clustering visualization
----
-
-# Association Rule Mining
-Association rule mining was applied using the **Apriori algorithm** to identify products that are frequently purchased together.
-The dataset was converted into a transactional format where each invoice represents a basket of purchased items.
-Association rules were evaluated using the following metrics:
-| Metric | Description |
-|------|------|
-| Support | Frequency of the itemset |
-| Confidence | Probability of purchasing B given A |
-| Lift | Strength of association compared to random |
-Rules with lift greater than 1 indicate meaningful relationships between products.
-These patterns may help retailers design strategies such as:
-- Product bundling
-- Cross-selling
-- Recommendation systems
----
-
-# Initial Clustering Results
-Customer behavior patterns were explored using **K-Means clustering**.
-Transactions were aggregated at the invoice level using:
-- Total quantity purchased
-- Average unit price
-
-After scaling the data, K-Means clustering was applied to identify groups of transactions with similar purchasing characteristics.
-The resulting clusters suggest different purchasing behaviors, such as:
-- Small frequent purchases
-- Large bulk purchases
-- Higher price transactions
----
-
-# Results and Insights
-The initial analysis reveals that the dataset contains meaningful patterns in customer transactions.
-Key insights include:
-- Some products frequently appear together within the same transaction
-- Retail transactions follow a typical long-tail distribution
-
-These insights demonstrate the potential of data mining techniques for discovering actionable patterns in retail datasets.
-
----
-
-# Milestone 3 Plan
-The next stage of the project will extend the analysis by applying additional data mining techniques.
-Planned tasks include:
-- Customer segmentation using **K-Means and DBSCAN**
-- Anomaly detection using **Isolation Forest**
-- Identifying unusual transactions or customers
-- Further analysis of purchasing patterns
-These methods will provide deeper insights into customer behavior.
----
-
-# Technologies Used
-The project was implemented using Python and common data science libraries.
-Main libraries include:
-pandas
-numpy
-matplotlib
-seaborn
-scikit-learn
-mlxtend
-openpyxl
-
-# Installation
-Install dependencies:
-pip install -r requirements.txt
-
-# Running the Notebook
-Open the main notebook:
-notebooks/M2_Initial_Implemntation.ipynb
+3. **Are there anomalous customers or transactions?**  
+   → Addressed using Isolation Forest and Local Outlier Factor (LOF)
+     anomalies include high-spending and high-frequency customers (likely wholesale or special cases), consistently detected across methods.
 
 
-The notebook contains:
-- Data loading
-- Data preprocessing
-- EDA visualizations
-- Association rule mining
+##  Implementation Pipeline
+
+The analysis follows a structured data mining workflow:
+
+1. **Data Cleaning**
+   - Removed missing values
+   - Filtered negative quantities and prices
+   - Removed return transactions (InvoiceNo starting with 'C')
+
+2. **Feature Engineering (RFM)**
+   - Recency: Days since last purchase
+   - Frequency: Number of transactions
+   - Monetary: Total spending
+
+3. **Clustering**
+   - K-Means applied on original RFM features
+   - PCA applied as preprocessing to improve clustering
+   - Comparison between original vs PCA-based clustering
+
+4. **Decision Tree (Interpretability)**
+   - Used to explain cluster structure
+   - Identifies key features distinguishing customer segments
+
+5. **Naive Bayes (Discovery) and PCA visualization**
+   - Analyzes conditional probabilities of features given clusters
+   - Provides interpretable insights into customer behavior
+   
+
+6. **Anomaly Detection**
+   - Isolation Forest and LOF used to identify unusual customers
+   - Detects high-value outliers and rare purchasing patterns
 
 
----
+## Key Results
 
-# Author
+- Identified **four distinct customer segments**:
+  - Elite customers (high frequency, high spending)
+  - Loyal high-value customers
+  - Regular mid-value customers
+  - Low-value / inactive customers
 
-Jia Liu  
-CS 4412 – Data Mining  
-Kennesaw State University
+- Naive Bayes reveals strong relationships between:
+  - High Frequency & Monetary → VIP customers
+  - High Recency → inactive customers
 
-## 7. Author
+- Anomaly detection highlights:
+  - High-spending wholesale-like customers
+  - Extreme purchasing behavior
+
+## Visualization
+
+The project includes multiple visualization layers:
+
+- RFM pairwise scatter plots (local interpretation)
+- PCA-based clustering visualization (global structure)
+- Naive Bayes probability heatmaps
+- Anomaly detection plots
+
+
+## Current Status (M3)
+
+✔ Complete data pipeline  
+✔ All techniques implemented and working  
+✔ Meaningful patterns discovered  
+✔ Discovery questions largely answered  
+
+The project is **functionally complete**. Remaining work focuses on refinement and presentation.
+
+
+## Plan for M4
+
+- Improve visualization quality and layout
+- Enhance interpretation and storytelling
+- Evaluate model limitations and robustness
+- Finalize report for portfolio-level quality
+
+##  Technologies Used
+
+- Python (Pandas, NumPy)
+- Scikit-learn (KMeans, PCA, Decision Tree, Naive Bayes)
+- Seaborn & Matplotlib
+- MLxtend (Apriori)
+
+##  Repository Structure
+CS4412_Project_Jia_Liu/
+data/
+    raw/
+    Online Retail .xlsx
+notebook/
+    M1_Proposal.ipynb
+    M2_Initial_Implementation.ipynb
+    M3_Complete_Implementation.ipynb
+docs/
+    CS4412_JIA_LIU_M3.pdf
+    M1-Proposal.pdf
+    M2-Initial Implementation.pdf
+figures/
+src/
+       
+
+## Author
 Jia Liu  
 CS 4412 – Data Mining  
 Kennesaw State University
