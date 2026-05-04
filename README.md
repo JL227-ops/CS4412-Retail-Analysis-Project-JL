@@ -1,132 +1,326 @@
-# Customer Segmentation and Market Basket Analysis
+# Retail Customer Segmentation and Pattern Discovery Using Data Mining Techniques
 ### CS 4412 – Data Mining  
-# CS4412 Retail Analysis Project (M3)
+### Final Deliverable (M4)
+---
 
-## Project Overview
-This project analyzes customer purchasing behavior using the UCI Online Retail dataset.  
-The goal is to discover meaningful patterns in customer transactions and support business decisions such as customer segmentation, cross-selling, and anomaly detection.
+# Project Overview
 
-This milestone (M3) represents a **complete implementation** of the data mining pipeline, including feature engineering, clustering, classification, and anomaly detection.
+This project analyzes customer purchasing behavior using the UCI Online Retail dataset from the UCI Machine Learning Repository. The dataset contains 541,909 transaction records from a UK-based online retailer between 2010 and 2011.
 
+The goal of the project is to discover meaningful customer behavior patterns using multiple data mining techniques and generate useful business insights related to customer segmentation, recommendation systems, customer retention, and anomaly detection.
 
-## Discovery Questions
+This analysis emphasizes:
+- pattern discovery
+- customer behavior interpretation
+- probabilistic analysis
+- anomaly interpretation
+- business meaning of discovered patterns
 
-1. **Which products are frequently purchased together?**  
-   → Addressed using association rule mining (Apriori)
+The project combines clustering, association rule mining, probabilistic analysis, dimensionality reduction, and anomaly detection into a single customer analytics workflow.
 
-2. **Are there natural customer segments based on purchasing behavior?**  
-   → Addressed using RFM, K-Means (original + PCA), Decision Tree, Naive Bayes.
-     four segments were identified (VIP, loyal, regular, inactive). 
-     Frequency and Monetary define high-value customers, while Recency identifies inactive ones.
+---
 
-3. **Are there anomalous customers or transactions?**  
-   → Addressed using Isolation Forest and Local Outlier Factor (LOF)
-     anomalies include high-spending and high-frequency customers (likely wholesale or special cases), consistently detected across methods.
+# Discovery Questions
 
+The project focuses on three main discovery questions:
 
-##  Implementation Pipeline
+## 1. Which products are frequently purchased together?
+Addressed using:
+- Apriori Association Rule Mining
 
-The analysis follows a structured data mining workflow:
+Main findings:
+- Tea cup and gift-related products frequently appeared together
+- Strong lift values suggested meaningful product relationships
+- Results support recommendation systems and cross-selling strategies
 
-1. **Data Cleaning**
-   - Removed missing values
-   - Filtered negative quantities and prices
-   - Removed return transactions (InvoiceNo starting with 'C')
+---
 
-2. **Feature Engineering (RFM)**
-   - Recency: Days since last purchase
-   - Frequency: Number of transactions
-   - Monetary: Total spending
+## 2. Are there natural customer segments based on purchasing behavior?
+Addressed using:
+- RFM Feature Engineering
+- K-Means Clustering
+- PCA Visualization
+- Decision Tree Interpretation
+- Naive Bayes Probabilistic Analysis
 
-3. **Clustering**
-   - K-Means applied on original RFM features
-   - PCA applied as preprocessing to improve clustering
-   - Comparison between original vs PCA-based clustering
-
-4. **Decision Tree (Interpretability)**
-   - Used to explain cluster structure
-   - Identifies key features distinguishing customer segments
-
-5. **Naive Bayes (Discovery) and PCA visualization**
-   - Analyzes conditional probabilities of features given clusters
-   - Provides interpretable insights into customer behavior
-   
-
-6. **Anomaly Detection**
-   - Isolation Forest and LOF used to identify unusual customers
-   - Detects high-value outliers and rare purchasing patterns
-
-
-## Key Results
-
-- Identified **four distinct customer segments**:
-  - Elite customers (high frequency, high spending)
+Main findings:
+- Four major customer groups were identified:
+  - VIP / Elite customers
   - Loyal high-value customers
-  - Regular mid-value customers
-  - Low-value / inactive customers
+  - Regular customers
+  - Inactive customers
 
-- Naive Bayes reveals strong relationships between:
-  - High Frequency & Monetary → VIP customers
-  - High Recency → inactive customers
+- VIP customers showed:
+  - very high purchase frequency
+  - very recent purchasing behavior
+  - extremely high spending levels
 
-- Anomaly detection highlights:
-  - High-spending wholesale-like customers
-  - Extreme purchasing behavior
+- Inactive customers showed:
+  - low spending
+  - long inactivity periods
+  - possible customer churn risk
 
-## Visualization
+---
 
-The project includes multiple visualization layers:
+## 3. Are there anomalous customers or unusual purchasing behaviors?
+Addressed using:
+- Isolation Forest
+- Local Outlier Factor (LOF)
 
-- RFM pairwise scatter plots (local interpretation)
-- PCA-based clustering visualization (global structure)
-- Naive Bayes probability heatmaps
-- Anomaly detection plots
+Main findings:
+- High-spending and high-frequency customers were identified as anomalies
+- Some anomalies overlapped with VIP customer groups
+- Other anomalies represented irregular purchasing behaviors or possible wholesale buyers
+
+An important analytical finding of the project is that:
+- VIP customers and anomalies are partially overlapping rather than identical populations
+
+This suggests that:
+- clustering identifies stable customer groups
+- anomaly detection identifies statistically unusual behavior patterns
+
+---
+
+# Dataset Information
+
+## Dataset
+- Online Retail Dataset
+- Source: UCI Machine Learning Repository
+- Transactions: 541,909
+- Time Range: 2010–2011
+- Domain: Online Retail
+
+## Main Features
+- InvoiceNo
+- StockCode
+- Description
+- Quantity
+- InvoiceDate
+- UnitPrice
+- CustomerID
+- Country
+
+---
+
+# Data Preprocessing
+
+Several preprocessing steps were applied before analysis:
+
+- Removed missing CustomerID values
+- Removed negative quantities and return transactions
+- Removed invalid prices
+- Removed duplicate transactions when necessary
+- Created TotalPrice feature
+
+---
+
+# Feature Engineering
+
+## RFM Features
+
+The project uses RFM customer analytics features:
+
+- **Recency**  
+  Days since the customer’s last purchase
+
+- **Frequency**  
+  Number of purchases made by the customer
+
+- **Monetary**  
+  Total spending amount of the customer
+
+These features provide a compact representation of customer purchasing behavior.
+
+---
+
+# Techniques Used
+
+| Technique | Purpose |
+|---|---|
+| Apriori | Market basket analysis |
+| K-Means | Customer segmentation |
+| PCA | Cluster visualization |
+| Decision Tree | Cluster interpretation |
+| Naive Bayes | Probabilistic analysis |
+| Isolation Forest | Anomaly detection |
+| LOF | Anomaly comparison |
+
+---
+
+# Key Results
+
+## Customer Segmentation
+Four major customer groups were identified:
+
+| Cluster | Description |
+|---|---|
+| Cluster 2 | VIP / Elite customers |
+| Cluster 3 | Loyal high-value customers |
+| Cluster 0 | Regular customers |
+| Cluster 1 | Inactive customers |
+
+Cluster 2 customers showed:
+- average Recency ≈ 7 days
+- average Frequency ≈ 82 purchases
+- average Monetary ≈ £127,338
+
+These customers may represent:
+- VIP customers
+- wholesale buyers
+- corporate accounts
+
+---
+
+## PCA Visualization
+PCA improved cluster separation and produced a clearer visualization of customer structure.
+
+---
+
+## Decision Tree Interpretation
+The decision tree identified:
+- Frequency and Monetary as the strongest indicators of high-value customers
+- Recency as a major indicator of inactive customers
+
+Several interpretable business rules were discovered from the tree structure.
+
+---
+
+## Naive Bayes Probabilistic Analysis
+Naive Bayes was used as a probabilistic interpretation tool rather than a pure prediction model.
+
+Main findings:
+- VIP customers strongly associated with high Frequency and Monetary values
+- Inactive customers associated with high Recency values
+- Approximately 87% probabilistic agreement with original cluster structure
+
+---
+
+## Anomaly Detection
+Isolation Forest and LOF identified customers with:
+- extremely high spending
+- unusually high purchase frequency
+- irregular purchasing behavior
+
+Important finding:
+- VIP customers and anomalies partially overlap
+- not all anomalies are VIP customers
+- not all VIP customers are strong anomalies
+
+---
+
+# Business Interpretation
+
+The findings provide several useful business insights:
+
+- VIP customers contribute disproportionately large revenue
+- Loyal customers support long-term profitability
+- Inactive customers may indicate churn risk
+- Association rules support recommendation systems
+- Anomaly detection may identify wholesalers or rare customer behaviors
+
+Potential applications include:
+- recommendation systems
+- personalized marketing
+- customer retention
+- cross-selling
+- customer value analysis
+
+---
+
+# Critical Assessment
+
+## Validity
+- Multiple methods identified similar customer behavior patterns
+- PCA improved cluster visualization
+- K-Means clustering was tested with multiple random seeds
+- Clustering and anomaly detection supported similar findings
+
+## Limitations
+- Dataset heavily dominated by UK customers
+- VIP customer class imbalance
+- Parameter sensitivity in clustering and anomaly detection
+- Missing CustomerID removal may introduce bias
+
+## Ethical Considerations
+- Customer privacy awareness
+- Responsible use of customer analytics
+- Dataset bias considerations
+- Fairness in customer targeting strategies
+
+---
+
+# Repository Structure
+
+```text
+CS4412-Retail-Analysis-Project-JL/
+│
+├── data/
+│   └── raw/
+│
+├── docs/
+│   ├── CS4412_JIA_LIU_M1/
+│   ├── CS4412_JIA_LIU_M2/
+│   ├── CS4412_JIA_LIU_M3/
+│   └── CS4412_JIA_LIU_M4/
+│
+├── notebooks/
+│   ├── M1_Proposal.ipynb
+│   ├── M2_Initial_Implementation.ipynb
+│   ├── M3_Complete_Implementation.ipynb
+│   └── M4_Deliverable.ipynb
+│
+├── figures/
+│
+├── README.md
+├── requirements.txt
+└── .gitignore
+
+## How to Run
+### Requirements
+###Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
 
-## Current Status (M3)
+##Main Libraries
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+mlxtend
 
-✔ Complete data pipeline  
-✔ All techniques implemented and working  
-✔ Meaningful patterns discovered  
-✔ Discovery questions largely answered  
+##Run Notebook
+Open the notebooks folder and run by Google Colab:
+M4_Deliverable.ipynb
 
-The project is **functionally complete**. Remaining work focuses on refinement and presentation.
+##Future Work
+Possible future improvements include:
+DBSCAN comparison
+FP-Growth comparison
+hierarchical clustering
+time-series customer analysis
+stronger validation methods
+improved anomaly detection tuning
+additional demographic or seasonal analysis
 
+##Technologies Used
+Python
+Pandas
+NumPy
+Scikit-learn
+Matplotlib
+Seaborn
+MLxtend
+Git
+Google Colab
 
-## Plan for M4
-
-- Improve visualization quality and layout
-- Enhance interpretation and storytelling
-- Evaluate model limitations and robustness
-- Finalize report for portfolio-level quality
-
-##  Technologies Used
-
-- Python (Pandas, NumPy)
-- Scikit-learn (KMeans, PCA, Decision Tree, Naive Bayes)
-- Seaborn & Matplotlib
-- MLxtend (Apriori)
-
-##  Repository Structure
-
-CS4412-Retail-Analysis-Project-JL 
-
-├── data/ 
-
-     ├─ raw/ # Original Online Retail dataset 
-     
-├── docs/ # M1-Proposal,M2-Initial Implementation,CS4412_jia_liu_M3 
-
-├── notebooks/ # M1_Proposal,M2_Initial Inmplementation,M3_Complete_Implementation
-
-├── src/
-
-├── figures/ # Plots(RFM,PCA, clustering) 
-
-├── README.md # Project overview and instructions
-
-└── requirements.txt # List of required Python libraries
-       
+##References
+1.UCI Machine Learning Repository — Online Retail Dataset
+2.Mohammed J. Zaki and Wagner Meira Jr., Data Mining and Machine Learning, Cambridge University Press, 2020
+3.Jure Leskovec, Anand Rajaraman, and Jeffrey Ullman, Mining of Massive Datasets, Cambridge University Press, 2014
+3.Charu C. Aggarwal, Outlier Analysis, Springer, 2016
 
 ## Author
 Jia Liu  
