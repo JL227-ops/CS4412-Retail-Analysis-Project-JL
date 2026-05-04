@@ -258,8 +258,8 @@ CS4412-Retail-Analysis-Project-JL/
 │   └── raw/
 │
 ├── docs/
-│   ├── CS4412_JIA_LIU_M1/
-│   ├── CS4412_JIA_LIU_M2/
+│   ├── M1-Proposal/
+│   ├── M2-Initial_Implementation/
 │   ├── CS4412_JIA_LIU_M3/
 │   └── CS4412_JIA_LIU_M4/
 │
