@@ -274,16 +274,15 @@ CS4412-Retail-Analysis-Project-JL/
 ├── README.md
 ├── requirements.txt
 └── .gitignore
+```
 
-## How to Run
+### How to Run
 ### Requirements
-###Install dependencies:
+   Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
-
-
-##Main Libraries
+## Main Libraries
 pandas
 numpy
 scikit-learn
@@ -291,11 +290,11 @@ matplotlib
 seaborn
 mlxtend
 
-##Run Notebook
+## Run Notebook
 Open the notebooks folder and run by Google Colab:
 M4_Deliverable.ipynb
 
-##Future Work
+## Future Work
 Possible future improvements include:
 DBSCAN comparison
 FP-Growth comparison
@@ -305,7 +304,7 @@ stronger validation methods
 improved anomaly detection tuning
 additional demographic or seasonal analysis
 
-##Technologies Used
+## Technologies Used
 Python
 Pandas
 NumPy
@@ -316,7 +315,7 @@ MLxtend
 Git
 Google Colab
 
-##References
+## References
 1.UCI Machine Learning Repository — Online Retail Dataset
 2.Mohammed J. Zaki and Wagner Meira Jr., Data Mining and Machine Learning, Cambridge University Press, 2020
 3.Jure Leskovec, Anand Rajaraman, and Jeffrey Ullman, Mining of Massive Datasets, Cambridge University Press, 2014
