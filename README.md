@@ -270,6 +270,9 @@ CS4412-Retail-Analysis-Project-JL/
 │   └── M4_Deliverable.ipynb
 │
 ├── figures/
+│   ├── M2/
+│   ├── M3/
+│   └── M4/
 │
 ├── README.md
 ├── requirements.txt
